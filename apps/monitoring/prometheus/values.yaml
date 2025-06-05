@@ -1,17 +1,19 @@
-defaultRules:
-  create: true
+# apps/monitoring/prometheus/values.yaml
 
 grafana:
   enabled: true
-  adminUser: admin
-  adminPassword: securepassword123
+  adminPassword: "admin"  # Change this for security
   service:
-    type: ClusterIP
+    type: NodePort
+  ingress:
+    enabled: false
 
 prometheus:
+  service:
+    type: NodePort
+
+# Optional alertmanager config
+alertmanager:
   enabled: true
   service:
-    type: ClusterIP
-
-alertmanager:
-  enabled: false
+    type: NodePort
