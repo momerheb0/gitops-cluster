@@ -8,10 +8,25 @@ spec:
   source:
     repoURL: https://prometheus-community.github.io/helm-charts
     chart: kube-prometheus-stack
-    targetRevision: 73.0.0  # Replace with latest version if needed
+    targetRevision: 73.0.0  # You can update this to latest if needed
     helm:
-      valueFiles:
-        - https://raw.githubusercontent.com/momerheb0/gitops-cluster/HEAD/apps/monitoring/prometheus/values.yaml
+      values: |
+        grafana:
+          enabled: true
+          adminPassword: "admin"
+          service:
+            type: NodePort
+          ingress:
+            enabled: false
+
+        prometheus:
+          service:
+            type: NodePort
+
+        alertmanager:
+          enabled: true
+          service:
+            type: NodePort
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
