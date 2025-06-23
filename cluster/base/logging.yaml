@@ -10,7 +10,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   project: default
   source:
-    repoURL: https://github.com/your-username/gitops-cluster.git
+    repoURL: https://github.com/momerheb0/gitops-cluster.git
     path: apps/logging
     targetRevision: HEAD
     directory:
