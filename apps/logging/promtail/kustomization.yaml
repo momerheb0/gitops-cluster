@@ -1,3 +1,2 @@
 resources:
-  - https://github.com/grafana/helm-charts/releases/download/promtail-6.15.5/promtail-6.15.5.tgz
-
+  - helm-release.yaml

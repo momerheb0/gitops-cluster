@@ -1,3 +1,2 @@
 resources:
-  - https://github.com/grafana/helm-charts/releases/download/loki-stack-2.9.10/loki-stack-2.9.10.tgz
-
+  - helm-release.yaml
