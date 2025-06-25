@@ -25,21 +25,6 @@ spec:
             path: /
             pathType: Prefix
 
-          dashboards:
-            default:
-              node-exporter:
-                gnetId: 1860
-                revision: 21
-                datasource: Prometheus
-              loki-logs:
-                gnetId: 13639
-                revision: 1
-                datasource: Loki
-              kube-view:
-                gnetId: 315
-                revision: 2
-                datasource: Prometheus
-
           dashboardProviders:
             dashboardproviders.yaml:
               apiVersion: 1
@@ -52,6 +37,13 @@ spec:
                   editable: true
                   options:
                     path: /var/lib/grafana/dashboards/default
+
+          dashboards:
+            default:
+              node-exporter:
+                file: dashboards/node-exporter.json
+              loki-logs:
+                file: dashboards/loki-logs.json
 
         prometheus:
           prometheusSpec:
