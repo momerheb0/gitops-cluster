@@ -4,19 +4,19 @@ metadata:
   name: promtail
   namespace: argocd
 spec:
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: logging
   project: default
   source:
-    repoURL: https://grafana.github.io/helm-charts
-    chart: promtail
-    targetRevision: 6.15.5
+    repoURL: https://github.com/momerheb0/gitops-cluster.git
+    targetRevision: HEAD
+    path: apps/logging/promtail/chart
     helm:
       values: |
         config:
           clients:
-                  - url: http://loki.logging.svc.cluster.local:3100/loki/api/v1/push
+            - url: http://loki.logging.svc.cluster.local:3100/loki/api/v1/push
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: logging
   syncPolicy:
     automated:
       selfHeal: true
