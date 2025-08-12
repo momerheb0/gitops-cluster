@@ -10,4 +10,5 @@ data:
     {{ .Files.Get "dashboards/node-exporter.json" | indent 4 }}
   loki-logs.json: |
     {{ .Files.Get "dashboards/loki-logs.json" | indent 4 }}
-
+  nginx-ingress.json: |
+    {{ .Files.Get "dashboards/nginx-ingress.json" | indent 4 }}

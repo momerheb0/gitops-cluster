@@ -1,3 +1,4 @@
+# cluster/base/prometheus.yaml (Updated)
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -17,7 +18,7 @@ spec:
 
           ingress:
             enabled: true
-            ingressClassName: nginx
+            ingressClassName: nginx  # Now uses our NGINX ingress!
             annotations:
               nginx.ingress.kubernetes.io/ssl-redirect: "false"
             hosts:
@@ -44,10 +45,28 @@ spec:
                 file: dashboards/node-exporter.json
               loki-logs:
                 file: dashboards/loki-logs.json
+              nginx-ingress:  # NEW DASHBOARD!
+                file: dashboards/nginx-ingress.json
 
         prometheus:
           prometheusSpec:
             serviceMonitorSelectorNilUsesHelmValues: false
+            # Additional scrape configs for custom metrics
+            additionalScrapeConfigs:
+              - job_name: 'nginx-ingress-controller'
+                kubernetes_sd_configs:
+                  - role: pod
+                    namespaces:
+                      names:
+                        - ingress-nginx
+                relabel_configs:
+                  - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+                    action: keep
+                    regex: true
+                  - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+                    action: replace
+                    target_label: __metrics_path__
+                    regex: (.+)
 
   destination:
     server: https://kubernetes.default.svc
